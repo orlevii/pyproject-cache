@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "pyproject-cache"
+version = "0.1.0"
+description = "A CLI tool to create a deterministic version of your pyproject.toml file for caching."
+authors = ["Or Levi <orlevi128@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+swiftcli = "^0.1.0"
+toml = "^0.10.2"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.8.5"
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+mypy = "^1.14.1"
+ipdb = "^0.13.13"
+types-toml = "^0.10.8.20240310"
+
+[tool.poetry.scripts]
+pyproject-cache = 'pyproject_cache.cli:cli'
+
+[tool.poe.tasks]
+lint = "ruff check src tests"
+format = "ruff format src tests"
+test = "pytest -v"
+mypy = "mypy -p pyproject_cache -p tests"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
