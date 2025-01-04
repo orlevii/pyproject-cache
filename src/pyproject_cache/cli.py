@@ -3,7 +3,7 @@ from typing import Any
 import click
 from swiftcli import Group
 
-from .commands.clean import CleanCommand
+from .commands.prepare import PrepareCommand
 from .version import __version__
 
 
@@ -26,7 +26,7 @@ cli = Group(
     ]
 )
 
-cli.add_command_cls(CleanCommand)
+cli.add_command_cls(PrepareCommand)
 
 if __name__ == "__main__":
     cli()

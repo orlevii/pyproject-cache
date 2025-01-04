@@ -13,11 +13,11 @@ from .common_params import CommonParams
 StrDict = dict[str, Any]
 
 
-class CleanParams(CommonParams):
+class PrepareParams(CommonParams):
     dry_run: Flag = False
 
 
-class CleanCommand(BaseCommand[CleanParams]):
+class PrepareCommand(BaseCommand[PrepareParams]):
     NAME = "prepare"
     CONFIG = CommandConfig(
         help="""
@@ -94,3 +94,11 @@ class CleanCommand(BaseCommand[CleanParams]):
         for file in files_to_delete:
             if self.params.dry_run:
                 print(f"[DRYRUN] Deleting {file}")
+            else:
+                logger.info(f"Deleting file {file}")
+                file.unlink()
+
+        empty_dirs = [p for p in all_paths if p.is_dir() and not any(p.iterdir())]
+        for empty_dir in empty_dirs:
+            print(empty_dir)
+            empty_dir.rmdir()
